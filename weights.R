@@ -1,5 +1,9 @@
+bandwidth <- 2500
+
+plot_title <- glue::glue("Weights Produced by Gaussian Kernel with {scales::comma(bandwidth, 1)}km Bandwidth")
+
 weights <- tibble(d = seq(0,10000, by = 10),
-                  w = exp(-(d/3500)^2),
+                  w = exp(-(d/bandwidth)^2),
                   lab = case_when(d == 300  ~ "Death Valley",
                                   d == 1350 ~ "Yellowstone",
                                   d == 2490 ~ "Mexico City",
@@ -16,6 +20,6 @@ weights %>%
   theme_bw() +
   scale_x_continuous("Distance from Los Angeles, km", breaks = seq(0,10000, 2000), labels = scales::comma) +
   scale_y_continuous("Weight in Local Model for Los Angeles") +
-  ggtitle("Weights Produced by Gaussian Kernel with 3,500km Bandwidth", "Model Centered on Los Angeles")
+  ggtitle(plot_title, "Model Centered on Los Angeles")
 
-ggsave("LA_weights.png", height = 4, width = 6)
+ggsave("Figures/LA_weights.png", height = 4, width = 6)
