@@ -1,4 +1,4 @@
-bandwidth <- 2500
+bandwidth <- 3000
 
 plot_title <- glue::glue("Weights Produced by Gaussian Kernel with {scales::comma(bandwidth, 1)}km Bandwidth")
 
