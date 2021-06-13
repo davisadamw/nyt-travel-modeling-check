@@ -1,0 +1,21 @@
+weights <- tibble(d = seq(0,10000, by = 10),
+                  w = exp(-(d/3500)^2),
+                  lab = case_when(d == 300  ~ "Death Valley",
+                                  d == 1350 ~ "Yellowstone",
+                                  d == 2490 ~ "Mexico City",
+                                  d == 3940 ~ "New York City",
+                                  d == 8760 ~ "London",
+                                  TRUE      ~ NA_character_))
+
+
+weights %>% 
+  ggplot(aes(d, w, label = lab)) +
+  geom_line() + 
+  geom_point(data = ~ filter(.x, !is.na(lab))) +
+  geom_text(data = ~ filter(.x, !is.na(lab)), hjust = 0, vjust = 0, nudge_x = 50, nudge_y = 0.01) +
+  theme_bw() +
+  scale_x_continuous("Distance from Los Angeles, km", breaks = seq(0,10000, 2000), labels = scales::comma) +
+  scale_y_continuous("Weight in Local Model for Los Angeles") +
+  ggtitle("Weights Produced by Gaussian Kernel with 3,500km Bandwidth", "Model Centered on Los Angeles")
+
+ggsave("LA_weights.png", height = 4, width = 6)
