@@ -36,7 +36,7 @@ map_titles <- tribble(
   "log_elev",                    "Elevation",
   "log_pop",                     "Population Density",
   "log_remote",                  "Distance from a Major City",
-  "place_type_natural_location", "Place is Natural Location",
+  "place_type_natural_location", "Place is Nonurban Location",
   "place_type_region",           "Place is Region",
   "place_type_urban",            "Place is Urban",
   "log_prec",                    "Precipitation",
@@ -175,6 +175,7 @@ palettes <- palettes %>%
 variable_pairs %>% 
   left_join(palettes, by = "variable") %>% 
   #slice(1) %>% 
+  #filter(variable == "place_type_natural_location") %>% 
   pwalk(make_map, data_source = all_rasters_sf_cleaned, col_info = col_info, strength = stretch_strength)
 
 
